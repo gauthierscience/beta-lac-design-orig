@@ -11,13 +11,14 @@ cd beta-lac-design
 ```
 
 Notes:
-- Data are available in the `analysis_scripts/data` directory. 
+- Data are available in the `analysis_scripts/data` directory. Analysis on new data must conform to the same format. Output of the scripts can be viewed as images in the jupyter notebooks.
 - Analysis scripts are
-all provided as jupyter notebooks in the `analysis_scripts` directory. 
+all provided as jupyter notebooks in the `analysis_scripts` directory. Output of these scripts is shown as embedded in the jupyter notebook.
+- There are no notable installation or run time committments for any of these scripts.
 - All scripts and data that were used to generate the designs are available in
 [ingraham_code_generate_seqs.zip](https://drive.google.com/file/d/1HblnaqjFCSUKItoxahlQaezLE7bYSgZI/view?usp=drive_link)
 
-## Run analysis Scripts
+## Demo / Run analysis scripts
 
 1. **Optional** create a virtual environment for analysis:
 ```
@@ -39,7 +40,7 @@ pip3 install lmfit
 pip3 install "numpy<1.24"
 ```
 
-3. Navigate to script directory and launch jupyter notebook
+3. Navigate to script directory, launch jupyter notebook and open any of the notebooks in the gui (ipynb files).
 ```
 cd analysis_scripts
 jupyter notebook
