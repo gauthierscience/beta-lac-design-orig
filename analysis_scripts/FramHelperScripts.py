@@ -26,10 +26,11 @@ class FramHelperFunctions:
 
 		self.sample_names_df = pd.read_excel(
 		    self.data_filename, sheet_name='sample_order',
-		)[['sample_name', 'synonyms']]
-		self.sample_names_df.synonyms = self.sample_names_df.synonyms.apply(
-			lambda synonyms: synonyms.split(',')
-		)
+		)[['sample_name', 'synonyms']].astype(str).assign(
+			synonyms = lambda df: df.synonyms.apply(
+				lambda synonyms: synonyms.split(',')
+            )
+        )
 	
 	#
 	#
@@ -45,23 +46,29 @@ class FramHelperFunctions:
 	# SEQUENCES
 	#
 	#
-	def get_sequences_df(self):
+	def get_sequences_df(self, only_tested=True):
+		if not only_tested:
+			return self._parseSequences(only_tested)
+
 		if hasattr(self, 'sequences_df'): return self.sequences_df
 		self.sequences_df = self._parseSequences()
 		return self.sequences_df
 	
-	def _parseSequences(self):
-		self.sequences_df = self.add_manuscript_name_to_df(
+	def _parseSequences(self, only_tested=True):
+		sheetname = 'tested_seqs'
+		if not only_tested: sheetname = 'all_generated_design_seqs'
+        
+		toreturn = self.add_manuscript_name_to_df(
 			pd.read_excel(
-				self.data_filename, sheet_name='design_seqs'
+				self.data_filename, sheet_name=sheetname
 			), 
 			synonym_column='sample_id', 
 			new_column='manuscript_name'
 		).drop('sample_id', axis=1)
 
 		#load mutations
-		wt_full_seq = self.sequences_df[
-			self.sequences_df.manuscript_name=='WT TEM-1'
+		wt_full_seq = toreturn[
+			toreturn.manuscript_name=='WT TEM-1'
 		].iloc[0].full_sequence
 
 		numbering_df = self.get_numbering_df()
@@ -82,14 +89,14 @@ class FramHelperFunctions:
 					)
 			return muts
 
-		self.sequences_df['model_mutations'] = self.sequences_df.full_sequence.apply(
+		toreturn['model_mutations'] = toreturn.full_sequence.apply(
 			lambda seq: parseMutations(seq)
 		)
 
 		#move manuscript name to the front of the dataframe
-		col = self.sequences_df.pop('manuscript_name')
-		self.sequences_df.insert(0, col.name, col)
-		return self.sequences_df
+		col = toreturn.pop('manuscript_name')
+		toreturn.insert(0, col.name, col)
+		return toreturn
 
 
 	def get_natural_msa_df(self, remove_unaligned_positions=True):
