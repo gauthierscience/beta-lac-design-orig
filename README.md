@@ -15,8 +15,8 @@ Notes:
 - Analysis scripts are
 all provided as jupyter notebooks in the `analysis_scripts` directory. Output of these scripts is shown as embedded in the jupyter notebook.
 - There are no notable installation or run time committments for any of these scripts.
-- All scripts and data that were used to generate the designs are available in
-[ingraham_code_generate_seqs.zip](https://drive.google.com/file/d/1HblnaqjFCSUKItoxahlQaezLE7bYSgZI/view?usp=drive_link)
+- All MATLAB scripts and data (multiple sequence alignment and model) that were used to generate the designs are available in
+[potts_design_release.zip](https://github.com/gauthierscience/beta-lac-design/blob/main/analysis_scripts/potts_design_release.zip). Please see `README.m` in the zip file for examples of how to execute new design generation.
 
 ## Demo / Run analysis scripts
 
