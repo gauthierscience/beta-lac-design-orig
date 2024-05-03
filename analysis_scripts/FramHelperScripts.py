@@ -19,7 +19,7 @@ class FramHelperFunctions:
 
 	def __init__(self, data_dir):
 		self.data_dir = data_dir
-		self.data_filename = '{0}/{1}'.format(data_dir, 'data_final.xlsx')
+		self.data_filename = '{0}/{1}'.format(data_dir, 'Raw Data.xlsx')
 		self.model_filename = '{0}/{1}'.format(data_dir, 'BLAT_ECOLX_1_b0.5.model')
 		self.msa_filename = '{0}/{1}'.format(data_dir, 'BLAT_ECOLX_1_b0.5.a2m')
 		self.pdb_1xpb_filename = '{0}/{1}'.format(data_dir, '1xpb.pdb')
@@ -290,9 +290,9 @@ class FramHelperFunctions:
 		resi.id: the biopython pdb parser value available for each 
 		         residue, acquired by calling "resi.id"
 		'''
-		for idx in reversed(range(51, 57)):
+		for idx in reversed(range(52, 57)):
 			pdb_chain[idx].id = (' ', idx+1, ' ')
-
+		pdb_chain[(' ',51,'A')].id = (' ', 52, ' ')
 		return pdb_chain
 
 
